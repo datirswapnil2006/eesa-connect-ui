@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { Menu, X, Zap, User, LogOut } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -42,9 +42,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg gradient-hero flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Zap className="w-5 h-5 text-primary-foreground" />
-            </div>
+            <img src="/eesa logo.jpg" alt="EESA logo" className="w-10 h-10 object-contain rounded-md group-hover:scale-105 transition-transform" />
             <span className="font-display font-bold text-xl text-foreground">EESA</span>
           </Link>
 

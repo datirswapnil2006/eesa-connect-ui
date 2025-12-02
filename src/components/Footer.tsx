@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Zap, Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -8,10 +8,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-sidebar-primary/20 flex items-center justify-center">
-                <Zap className="w-5 h-5 text-sidebar-primary" />
-              </div>
+            <Link to="/" className="flex items-center gap-3 mb-4">
+              <img src="/eesa logo.jpg" alt="EESA logo" className="w-12 h-12 object-contain rounded-md" />
               <span className="font-display font-bold text-xl">EESA</span>
             </Link>
             <p className="text-sm text-sidebar-foreground/70 leading-relaxed">

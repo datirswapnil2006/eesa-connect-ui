@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Zap, AlertCircle, Loader2, CheckCircle } from 'lucide-react';
+import { AlertCircle, Loader2, CheckCircle } from 'lucide-react';
 import { useAuth, UserRole } from '@/context/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
@@ -61,9 +61,7 @@ export default function Signup() {
       <div className="pt-24 pb-12 flex items-center justify-center px-4">
         <Card className="w-full max-w-md card-elevated">
           <CardHeader className="text-center">
-            <div className="w-14 h-14 rounded-xl gradient-hero flex items-center justify-center mx-auto mb-4">
-              <Zap className="w-7 h-7 text-primary-foreground" />
-            </div>
+            <img src="/eesa logo.jpg" alt="EESA logo" className="w-14 h-14 object-contain mx-auto mb-4" />
             <CardTitle className="font-display text-2xl">Join EESA</CardTitle>
             <CardDescription>Create your account to get started</CardDescription>
           </CardHeader>
