@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 // Pages
 import Index from "./pages/Index";
 import About from "./pages/About";
+import Alumni from "./pages/Alumni";
 import Gallery from "./pages/Gallery";
 import Forums from "./pages/Forums";
 import Blog from "./pages/Blog";
@@ -57,6 +58,7 @@ const AppRoutes = () => (
       {/* Public Routes */}
       <Route path="/" element={<Index />} />
       <Route path="/about" element={<About />} />
+      <Route path="/alumni" element={<Alumni />} />
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/forums" element={<Forums />} />
       <Route path="/blog" element={<Blog />} />

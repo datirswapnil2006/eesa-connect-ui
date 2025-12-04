@@ -6,21 +6,35 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const eventTags = ['All', 'Workshops', 'Hackathons', 'Seminars', 'Social Events', 'Projects'];
+const eventTags = ['All', 'Workshops', 'Inauguraltion', 'Seminars', 'Social Events', 'Projects', 'Team'];
 
 const galleryItems = [
   { id: 1, tag: 'Workshops', caption: 'Arduino Workshop 2024', color: 'from-blue-500 to-cyan-400' },
-  { id: 2, tag: 'Hackathons', caption: 'Annual Hackathon Winners', color: 'from-purple-500 to-pink-400' },
+  { 
+    id: 2, 
+    tag: 'Inauguraltion',
+    caption: 'Inaugural Intro Video', 
+    color: 'from-purple-500 to-pink-400',
+    videoUrl: '/Images/InauguralIntro.mp4',
+  },
   { id: 3, tag: 'Seminars', caption: 'Industry Expert Talk', color: 'from-green-500 to-teal-400' },
   { id: 4, tag: 'Social Events', caption: 'Welcome Party 2024', color: 'from-orange-500 to-yellow-400' },
   { id: 5, tag: 'Projects', caption: 'Final Year Project Showcase', color: 'from-red-500 to-pink-400' },
   { id: 6, tag: 'Workshops', caption: 'PCB Design Session', color: 'from-indigo-500 to-blue-400' },
-  { id: 7, tag: 'Hackathons', caption: 'IoT Challenge 2024', color: 'from-cyan-500 to-blue-400' },
+  { id: 7, tag: 'Hackathons', caption:'Ideathon 2025', color: 'from-cyan-500 to-blue-400' },
   { id: 8, tag: 'Seminars', caption: 'Career Development Talk', color: 'from-emerald-500 to-green-400' },
   { id: 9, tag: 'Projects', caption: 'Robotics Team Demo', color: 'from-violet-500 to-purple-400' },
   { id: 10, tag: 'Social Events', caption: 'Graduation Ceremony', color: 'from-amber-500 to-orange-400' },
   { id: 11, tag: 'Workshops', caption: 'FPGA Programming Lab', color: 'from-rose-500 to-red-400' },
   { id: 12, tag: 'Projects', caption: 'Smart Home System', color: 'from-sky-500 to-cyan-400' },
+  { 
+    id: 13, 
+    tag: 'Team', 
+    caption: 'Team Introduction Video', 
+    color: 'from-indigo-500 to-purple-400',
+    videoUrl: '/Images/TeamIntro.mp4',   
+    imageUrl: '/Images/GroupPhoto2.jpg',
+  },
 ];
 
 export default function Gallery() {
@@ -91,7 +105,14 @@ export default function Gallery() {
                 onClick={() => setSelectedImage(item.id)}
                 className="aspect-square rounded-xl overflow-hidden cursor-pointer group relative"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.color}`} />
+                {item.videoUrl ? (
+                  <video src={item.videoUrl} controls className="w-full h-full object-cover" />
+                ) : item.imageUrl ? (
+                  <img src={item.imageUrl} alt={item.caption} className="w-full h-full object-cover" />
+                ) : (
+                  <div className={`absolute inset-0 bg-gradient-to-br ${item.color}`} />
+                )}
+
                 <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/40 transition-colors flex items-end p-4">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity">
                     <Badge variant="secondary" className="mb-2">{item.tag}</Badge>
@@ -104,7 +125,7 @@ export default function Gallery() {
 
           {filteredItems.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-muted-foreground">No images found for this category.</p>
+              <p className="text-muted-foreground">No items found for this category.</p>
             </div>
           )}
         </div>
@@ -123,7 +144,22 @@ export default function Gallery() {
             
             {selectedImage && (
               <div className="rounded-xl overflow-hidden">
-                <div className={`aspect-video bg-gradient-to-br ${filteredItems.find(i => i.id === selectedImage)?.color}`} />
+                {filteredItems.find(i => i.id === selectedImage)?.videoUrl ? (
+                  <video 
+                    src={filteredItems.find(i => i.id === selectedImage)?.videoUrl!} 
+                    controls 
+                    className="w-full aspect-video"
+                  />
+                ) : filteredItems.find(i => i.id === selectedImage)?.imageUrl ? (
+                  <img 
+                    src={filteredItems.find(i => i.id === selectedImage)?.imageUrl!} 
+                    alt={filteredItems.find(i => i.id === selectedImage)?.caption} 
+                    className="w-full aspect-video object-cover"
+                  />
+                ) : (
+                  <div className={`aspect-video bg-gradient-to-br ${filteredItems.find(i => i.id === selectedImage)?.color}`} />
+                )}
+
                 <div className="p-4 bg-card">
                   <Badge variant="secondary" className="mb-2">
                     {filteredItems.find(i => i.id === selectedImage)?.tag}
