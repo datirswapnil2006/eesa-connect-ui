@@ -64,7 +64,7 @@ export default function Login() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@university.edu"
+                  placeholder="you@eesa.mail"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -74,10 +74,16 @@ export default function Login() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <a href="#" className="text-sm text-primary hover:underline">
+
+                  {/* ✅ FIXED FORGOT PASSWORD LINK */}
+                  <Link 
+                    to="/forgot-password" 
+                    className="text-sm text-primary hover:underline"
+                  >
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
+
                 <Input
                   id="password"
                   type="password"
@@ -111,14 +117,13 @@ export default function Login() {
               </Link>
             </div>
 
-            {/* Demo Credentials */}
             <div className="mt-6 p-4 rounded-lg bg-muted/50">
               <p className="text-xs text-muted-foreground text-center mb-2">Demo credentials (any password):</p>
               <div className="space-y-1 text-xs text-center">
-                <p><span className="font-medium">Admin:</span> admin@eesa.prmitr</p>
-                <p><span className="font-medium">Faculty:</span> faculty@eesa.prmitr</p>
-                <p><span className="font-medium">Member:</span> member@eesa.prmitr</p>
-                <p><span className="font-medium">Alumni:</span> alumni@eesa.prmitr</p>
+                <p><span className="font-medium">Admin:</span> admin.eesa.prmitr@gmail.com</p>
+                <p><span className="font-medium">Faculty:</span> faculty.eesa.prmitr@gmail.com</p>
+                <p><span className="font-medium">Member:</span> member.eesa.prmitr@gmail.com</p>
+                <p><span className="font-medium">Alumni:</span> alumni.eesa.prmitr@gmail.com</p>
               </div>
             </div>
           </CardContent>

@@ -19,7 +19,10 @@ export default function Signup() {
   const [role, setRole] = useState<UserRole>('member');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
+
+  // NEW STATE FOR TERMS CHECKBOX
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+
   const { signup } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -35,6 +38,12 @@ export default function Signup() {
 
     if (password.length < 6) {
       setError('Password must be at least 6 characters');
+      return;
+    }
+
+    // REQUIRED TERMS CHECKBOX VALIDATION
+    if (!acceptedTerms) {
+      setError('You must accept the Terms & Conditions to continue.');
       return;
     }
 
@@ -65,8 +74,10 @@ export default function Signup() {
             <CardTitle className="font-display text-2xl">Join EESA</CardTitle>
             <CardDescription>Create your account to get started</CardDescription>
           </CardHeader>
+
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              
               {error && (
                 <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
@@ -87,11 +98,11 @@ export default function Signup() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="email">University Email</Label>
+                <Label htmlFor="email">Your EESA Email</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@university.edu"
+                  placeholder="you@eesa.mail"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -140,7 +151,7 @@ export default function Signup() {
                 />
               </div>
 
-              {/* Password requirements */}
+              {/* Password Requirements */}
               <div className="space-y-1">
                 <div className="flex items-center gap-2 text-xs">
                   <CheckCircle className={`w-3 h-3 ${password.length >= 6 ? 'text-accent' : 'text-muted-foreground'}`} />
@@ -155,11 +166,33 @@ export default function Signup() {
                   </span>
                 </div>
               </div>
-              
+
+              {/* TERMS & CONDITIONS CHECKBOX */}
+              <div className="flex items-start space-x-2 pt-2">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  checked={acceptedTerms}
+                  onChange={(e) => setAcceptedTerms(e.target.checked)}
+                  className="mt-1"
+                />
+                <label htmlFor="terms" className="text-sm text-muted-foreground">
+                  I agree to the{' '}
+                  <a href="/terms" target="_blank" className="text-primary underline">
+                    Terms & Conditions
+                  </a>{' '}
+                  and{' '}
+                  <a href="/privacy" target="_blank" className="text-primary underline">
+                    Privacy Policy
+                  </a>.
+                </label>
+              </div>
+
+              {/* BUTTON DISABLED UNTIL TERMS ACCEPTED */}
               <Button 
                 type="submit" 
                 className="w-full gradient-hero text-primary-foreground border-0"
-                disabled={isLoading}
+                disabled={isLoading || !acceptedTerms}
               >
                 {isLoading ? (
                   <>
@@ -171,7 +204,7 @@ export default function Signup() {
                 )}
               </Button>
             </form>
-            
+
             <div className="mt-6 text-center text-sm text-muted-foreground">
               Already have an account?{' '}
               <Link to="/login" className="text-primary hover:underline font-medium">
