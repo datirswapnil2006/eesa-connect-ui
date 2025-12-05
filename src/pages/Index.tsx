@@ -59,9 +59,9 @@ const teamHighlights = [
 ];
 
 const stats = [
-  { value: '500+', label: 'Members' },
-  { value: '50+', label: 'Projects' },
-  { value: '100+', label: 'Events' },
+  { value: '30+', label: 'Members' },
+  { value: '1+', label: 'Projects' },
+  { value: '1+', label: 'Events' },
   { value: '25+', label: 'Faculty' },
 ];
 
