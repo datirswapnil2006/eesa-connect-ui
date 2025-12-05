@@ -33,7 +33,7 @@ export default function Login() {
       });
       navigate('/dashboard');
     } catch (err) {
-      setError('Invalid email or password. Try: admin@eesa.edu, faculty@eesa.edu, or member@eesa.edu');
+      setError('Invalid email or password. Try: admin@eesa.prmitr, faculty@eesa.prmitr, or member@eesa.prmitr');
     } finally {
       setIsLoading(false);
     }
@@ -115,9 +115,10 @@ export default function Login() {
             <div className="mt-6 p-4 rounded-lg bg-muted/50">
               <p className="text-xs text-muted-foreground text-center mb-2">Demo credentials (any password):</p>
               <div className="space-y-1 text-xs text-center">
-                <p><span className="font-medium">Admin:</span> admin@eesa.edu</p>
-                <p><span className="font-medium">Faculty:</span> faculty@eesa.edu</p>
-                <p><span className="font-medium">Member:</span> member@eesa.edu</p>
+                <p><span className="font-medium">Admin:</span> admin@eesa.prmitr</p>
+                <p><span className="font-medium">Faculty:</span> faculty@eesa.prmitr</p>
+                <p><span className="font-medium">Member:</span> member@eesa.prmitr</p>
+                <p><span className="font-medium">Alumni:</span> alumni@eesa.prmitr</p>
               </div>
             </div>
           </CardContent>

@@ -12,11 +12,11 @@ const blogTags = ['All', 'Tutorials', 'Research', 'Industry', 'Career', 'Project
 const blogPosts = [
   {
     id: 1,
-    title: 'Introduction to FPGA Programming: A Beginner\'s Guide',
+    title: '💡 A Day of Excellence and Gratitude: EESA Installation Ceremony and Engineers Day Celebration!',
     excerpt: 'Learn the fundamentals of FPGA programming with Verilog. This comprehensive guide covers everything from basic concepts to your first project.',
-    author: { name: 'Prof. James Wilson', role: 'faculty' as const },
-    tags: ['Tutorials', 'FPGA'],
-    publishedAt: 'Nov 28, 2024',
+    author: { name: 'Swapnil Datir', role: 'member' as const },
+    tags: ['Excellence', 'Gratitude'],
+    publishedAt: 'Dec 25, 2025',
   },
   {
     id: 2,
@@ -26,38 +26,7 @@ const blogPosts = [
     tags: ['Research', 'AI'],
     publishedAt: 'Nov 25, 2024',
   },
-  {
-    id: 3,
-    title: 'Industry Trends: What Skills Do Electronics Engineers Need in 2025?',
-    excerpt: 'A comprehensive look at the evolving skill requirements in the electronics industry and how to stay ahead of the curve.',
-    author: { name: 'Dr. Emily Rodriguez', role: 'faculty' as const },
-    tags: ['Industry', 'Career'],
-    publishedAt: 'Nov 22, 2024',
-  },
-  {
-    id: 4,
-    title: 'Building a Smart Home System from Scratch',
-    excerpt: 'Step-by-step guide to designing and implementing a complete IoT-based smart home system using ESP32 and custom PCBs.',
-    author: { name: 'Prof. Michael Chang', role: 'faculty' as const },
-    tags: ['Projects', 'IoT'],
-    publishedAt: 'Nov 20, 2024',
-  },
-  {
-    id: 5,
-    title: 'Power Electronics: Designing Efficient DC-DC Converters',
-    excerpt: 'Deep dive into the design principles of buck and boost converters, including PCB layout considerations for thermal management.',
-    author: { name: 'Prof. James Wilson', role: 'faculty' as const },
-    tags: ['Tutorials', 'Power Electronics'],
-    publishedAt: 'Nov 18, 2024',
-  },
-  {
-    id: 6,
-    title: 'Landing Your First Hardware Engineering Job: Tips from Hiring Managers',
-    excerpt: 'Insights from industry professionals on what they look for in entry-level hardware engineers and how to stand out.',
-    author: { name: 'Dr. Sarah Chen', role: 'admin' as const },
-    tags: ['Career', 'Industry'],
-    publishedAt: 'Nov 15, 2024',
-  },
+
 ];
 
 export default function Blog() {

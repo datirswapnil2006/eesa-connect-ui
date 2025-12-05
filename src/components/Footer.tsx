@@ -60,17 +60,17 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm text-sidebar-foreground/70">
                 <MapPin className="w-4 h-4 mt-0.5 text-sidebar-primary" />
-                <span>Engineering Building, Room 301<br />University Campus</span>
+                <span>Prof. Ram Meghe Institute of Technology & Research, Badnera, Amravati, India</span>
               </li>
               <li className="flex items-center gap-2 text-sm text-sidebar-foreground/70">
                 <Mail className="w-4 h-4 text-sidebar-primary" />
-                <a href="mailto:eesa@university.edu" className="hover:text-sidebar-primary transition-colors">
-                  eesa@university.edu
-                </a>
+                  <a href="mailto:eesa.prmitr@gmail.com" className="text-sm text-sidebar-foreground/70 hover:text-sidebar-primary transition-colors">
+                    eesa.prmitr@gmail.com
+                  </a>
               </li>
               <li className="flex items-center gap-2 text-sm text-sidebar-foreground/70">
                 <Phone className="w-4 h-4 text-sidebar-primary" />
-                <span>+1 (555) 123-4567</span>
+                <span>0721- 2681246</span>
               </li>
             </ul>
           </div>
@@ -81,12 +81,12 @@ export function Footer() {
             © {new Date().getFullYear()} EESA. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-sm text-sidebar-foreground/50 hover:text-sidebar-primary transition-colors">
+            <Link to="/privacy" className="text-sm text-sidebar-foreground/50 hover:text-sidebar-primary transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="text-sm text-sidebar-foreground/50 hover:text-sidebar-primary transition-colors">
+            </Link>
+            <Link to="/terms" className="text-sm text-sidebar-foreground/50 hover:text-sidebar-primary transition-colors">
               Terms of Service
-            </a>
+            </Link>
           </div>
         </div>
       </div>

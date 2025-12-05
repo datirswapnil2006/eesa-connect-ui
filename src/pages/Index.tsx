@@ -3,7 +3,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { RoleBadge } from '@/components/RoleBadge';
 import {
   Zap,
@@ -41,9 +41,21 @@ const features = [
 ];
 
 const teamHighlights = [
-  { name: 'Dr. Sarah Chen', role: 'admin' as const, position: 'Department Head' },
-  { name: 'Prof. James Wilson', role: 'faculty' as const, position: 'Associate Professor' },
-  { name: 'Alex Johnson', role: 'member' as const, position: 'Student President' },
+  { name: 'Dr. G. R. Bamnote', position: 'Principal of PRMITR' as const, role: 'faculty', image: '/Images/Principal.jpg' },
+  { name: 'Dr. S. V. Pattalwar', position: 'HOD of Electronics and Telecommunication Engineering' as const, role: 'faculty', image: '/Images/HOD.jpg' },
+  { name: 'Dr. A. I. Rokade', position: 'Faculty advisor of EESA' as const, role: 'faculty', image: '/Images/AIR.jpg' },
+  { name: 'Dr. N. S. Wadhe', position: 'Faculty coordinator of Career Development Forum' as const, role: 'faculty', image: '/Images/Wadhe sir.jpg' },
+  { name: 'Prof. S. A. Nirmal', position: 'Faculty coordinator of Core Electronics' as const, role: 'faculty', image: '/Images/Nirmal sir.jpg' },
+  { name: 'Prof. A. B. Pardikar', position: 'Faculty coordinator of IT Development Forum' as const, role: 'faculty', image: '/Images/Pardikar sir.jpg' },
+  { name: 'Dhruv Shinde', position: 'President of EESA' as const, role: 'member', image: '/Images/Dhruv.jpg' },
+  { name: 'Duhita Bute', position: 'Vice President of EESA' as const, role: 'member', image: '/Images/Duhita.jpg' },
+  { name: 'Swapnil Datir', position: 'Secretary of EESA' as const, role: 'member', image: '/Images/Swapnil.jpg' },
+  { name: 'Bhavesh Kale', position: 'Treasurer of EESA' as const, role: 'member', image: '/Images/Bhavesh.jpg' },
+  { name: 'Gauri Dharao', position: 'Chairman of Career Development Forum and executive member of EESA' as const, role: 'member', image: '/Images/Gauri.jpg' },
+  { name: 'Omkar Pimpalgaonkar', position: 'Chairman  of Core Electronics and executive member of EESA' as const, role: 'member', image: '/Images/Omkar.jpg' },
+  { name: 'Mayureshwar Shendre', position: 'Chairman of IT Development Forum and executive member of EESA' as const, role: 'member', image: '/Images/Mayureshwar.jpg' },
+  { name: 'Parth Zadey', position: 'Social Media Head of EESA' as const, role: 'member', image: '/Images/Parth.jpg' },
+  { name: 'Pranav Bankar', position: 'Tech Head of EESA' as const, role: 'member', image: '/Images/Pranav.jpg' },
 ];
 
 const stats = [
@@ -74,8 +86,8 @@ export default function Index() {
             </div>
             
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground max-w-4xl animate-fade-up" style={{ animationDelay: '0.1s' }}>
-              Electronic Engineering
-              <span className="block text-accent">Students Association</span>
+              Electronics Engineering
+              <span className="block text-white">Student Association</span>
             </h1>
             
             <p className="mt-6 text-lg md:text-xl text-primary-foreground/80 max-w-2xl animate-fade-up" style={{ animationDelay: '0.2s' }}>
@@ -179,14 +191,18 @@ export default function Index() {
               <Card key={idx} className="card-elevated text-center">
                 <CardContent className="p-6">
                   <Avatar className="w-20 h-20 mx-auto border-4 border-primary/10">
-                    <AvatarFallback className="bg-primary/10 text-primary text-2xl font-display">
-                      {member.name.charAt(0)}
-                    </AvatarFallback>
+                    {member.image ? (
+                      <AvatarImage src={member.image} alt={member.name} />
+                    ) : (
+                      <AvatarFallback className="bg-primary/10 text-primary text-2xl font-display">
+                        {member.name.charAt(0)}
+                      </AvatarFallback>
+                    )}
                   </Avatar>
                   <h3 className="mt-4 font-display font-semibold text-foreground">{member.name}</h3>
                   <p className="text-sm text-muted-foreground">{member.position}</p>
                   <div className="mt-2">
-                    <RoleBadge role={member.role} size="sm" />
+                    <RoleBadge role={member.role as 'faculty' | 'member' | 'admin'} size="sm" />
                   </div>
                 </CardContent>
               </Card>
@@ -225,7 +241,7 @@ export default function Index() {
               </Button>
             </Link>
             <Link to="/forums">
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
                 Browse Forums
               </Button>
             </Link>

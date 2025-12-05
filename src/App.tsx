@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
+
 // Pages
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -15,11 +16,15 @@ import Blog from "./pages/Blog";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 // Dashboards
 import MemberDashboard from "./pages/dashboard/MemberDashboard";
 import FacultyDashboard from "./pages/dashboard/FacultyDashboard";
 import AdminDashboard from "./pages/dashboard/AdminDashboard";
+import AlumniDashboard from "./pages/dashboard/AlumniDashboard";
+
 
 const queryClient = new QueryClient();
 
@@ -47,6 +52,8 @@ function DashboardRouter() {
       return <AdminDashboard />;
     case 'faculty':
       return <FacultyDashboard />;
+    case 'alumni':
+      return <AlumniDashboard />;
     default:
       return <MemberDashboard />;
   }
@@ -64,6 +71,8 @@ const AppRoutes = () => (
       <Route path="/blog" element={<Blog />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
       
       {/* Dashboard Routes */}
       <Route path="/dashboard" element={
@@ -79,6 +88,11 @@ const AppRoutes = () => (
       <Route path="/dashboard/faculty" element={
         <ProtectedRoute>
           <FacultyDashboard />
+        </ProtectedRoute>
+      } />
+      <Route path="/dashboard/alumni" element={
+        <ProtectedRoute>
+          <AlumniDashboard />
         </ProtectedRoute>
       } />
       <Route path="/dashboard/admin" element={

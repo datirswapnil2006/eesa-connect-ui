@@ -107,6 +107,8 @@ export default function Signup() {
                   <SelectContent>
                     <SelectItem value="member">Student Member</SelectItem>
                     <SelectItem value="faculty">Faculty Member</SelectItem>
+                    <SelectItem value="admin">Administrator</SelectItem>
+                    <SelectItem value="alumni">Alumni</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-xs text-muted-foreground">

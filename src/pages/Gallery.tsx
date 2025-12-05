@@ -6,16 +6,17 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const eventTags = ['All', 'Workshops', 'Inauguraltion', 'Seminars', 'Social Events', 'Projects', 'Team'];
+const eventTags = ['All', 'Workshops', 'Inauguration', 'Seminars', 'Social Events', 'Projects', 'Team'];
 
 const galleryItems = [
   { id: 1, tag: 'Workshops', caption: 'Arduino Workshop 2024', color: 'from-blue-500 to-cyan-400' },
   { 
     id: 2, 
-    tag: 'Inauguraltion',
+    tag: 'Inauguration',
     caption: 'Inaugural Intro Video', 
     color: 'from-purple-500 to-pink-400',
     videoUrl: '/Images/InauguralIntro.mp4',
+    imageUrl: '/Images/GroupPhoto2.jpg',
   },
   { id: 3, tag: 'Seminars', caption: 'Industry Expert Talk', color: 'from-green-500 to-teal-400' },
   { id: 4, tag: 'Social Events', caption: 'Welcome Party 2024', color: 'from-orange-500 to-yellow-400' },
@@ -105,10 +106,10 @@ export default function Gallery() {
                 onClick={() => setSelectedImage(item.id)}
                 className="aspect-square rounded-xl overflow-hidden cursor-pointer group relative"
               >
-                {item.videoUrl ? (
-                  <video src={item.videoUrl} controls className="w-full h-full object-cover" />
-                ) : item.imageUrl ? (
+                {item.imageUrl ? (
                   <img src={item.imageUrl} alt={item.caption} className="w-full h-full object-cover" />
+                ) : item.videoUrl ? (
+                  <video src={item.videoUrl} controls className="w-full h-full object-cover" />
                 ) : (
                   <div className={`absolute inset-0 bg-gradient-to-br ${item.color}`} />
                 )}

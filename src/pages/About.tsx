@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { RoleBadge } from '@/components/RoleBadge';
 import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react';
 
@@ -13,12 +13,13 @@ const values = [
 ];
 
 const teamMembers = [
-  { name: 'Dr. Sarah Chen', role: 'admin' as const, position: 'Department Head', bio: 'Leading EESA for 5 years with a focus on innovation.' },
-  { name: 'Prof. James Wilson', role: 'faculty' as const, position: 'Associate Professor', bio: 'Expert in VLSI design and signal processing.' },
-  { name: 'Dr. Emily Rodriguez', role: 'faculty' as const, position: 'Assistant Professor', bio: 'Specializes in embedded systems and IoT.' },
-  { name: 'Prof. Michael Chang', role: 'faculty' as const, position: 'Professor', bio: 'Research focus on renewable energy systems.' },
-  { name: 'Alex Johnson', role: 'member' as const, position: 'Student President', bio: 'Final year student passionate about electronics.' },
-  { name: 'Maria Santos', role: 'member' as const, position: 'Vice President', bio: 'Leading the events and workshops committee.' },
+  { name: 'Dr. S. V. Pattalwar', role: 'faculty' as const, position: 'Department Head', bio: 'Leading EESA for 5 months with a focus on innovation.', image: '/Images/HOD.jpg' },
+  { name: 'Dr. A. I. Rokade', role: 'faculty' as const, position: 'Faculty advisor of EESA', bio: 'Leading EESA for 5 months  with a focus on innovation.', image: '/Images/AIR.jpg' },
+  { name: 'Dr. N. S. Wadhe', role: 'faculty' as const, position: 'Faculty coordinator of Career Development Forum', bio: 'Leading EESA for 5 months with a focus on innovation.', image: '/Images/Wadhe sir.jpg' },
+  { name: 'Prof. S. A. Nirmal', role: 'faculty' as const, position: 'Faculty coordinator of Core Electronics', bio: 'Leading EESA for 5 months with a focus on innovation.', image: '/Images/Nirmal sir.jpg' },
+  { name: 'Prof. A. B. Pardikar', role: 'faculty' as const, position: 'Faculty coordinator of IT Development Forum', bio: 'Leading EESA for 5 months with a focus on innovation.', image: '/Images/Pardikar sir.jpg' },
+  { name: 'Dhruv Shinde', role: 'member' as const, position: 'President of EESA', bio: 'Leading EESA for 5 months with a focus on innovation.', image: '/Images/Dhruv.jpg' },
+  { name: 'Duhita Bute', role: 'member' as const, position: 'Vice President of EESA', bio: 'Leading EESA for 5 months with a focus on innovation.', image: '/Images/Duhita.jpg' },
 ];
 
 export default function About() {
@@ -53,9 +54,9 @@ export default function About() {
                 </div>
                 <h2 className="font-display text-2xl font-bold text-foreground">Our Mission</h2>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
-                  To foster a vibrant community of electronics engineering students, promoting academic excellence, 
-                  practical skills development, and professional growth. We aim to bridge the gap between theoretical 
-                  knowledge and real-world applications through hands-on projects, workshops, and industry collaborations.
+                M1 : To impart students with valuable knowledge through excellence in teaching, research and creative activities.<br />
+                M2 : To inculcate ethical practices amongst students.<br />
+                M3 : To mould students into highly competent Electronics and Telecommunication technocrats to address the techno-social engineering challenges with innovative solutions.
                 </p>
               </CardContent>
             </Card>
@@ -67,9 +68,7 @@ export default function About() {
                 </div>
                 <h2 className="font-display text-2xl font-bold text-foreground">Our Vision</h2>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
-                  To be the leading student association that inspires and empowers future electronics engineers 
-                  to become innovators and problem solvers. We envision a community where every member has the 
-                  opportunity to explore, create, and contribute to technological advancements.
+                To become a leading center of excellence in a futuristic national scenario that caters to the academic and research needs of the society at large in the field of Electronics and Telecommunication engineering.
                 </p>
               </CardContent>
             </Card>
@@ -111,20 +110,9 @@ export default function About() {
             <h2 className="font-display text-3xl font-bold text-foreground text-center mb-8">Our History</h2>
             <div className="prose prose-lg mx-auto text-muted-foreground">
               <p>
-                The Electronic Engineering Students Association (EESA) was founded in 2010 with a simple goal: 
-                to create a supportive community for electronics engineering students. What started as a small 
-                group of 20 passionate students has grown into a thriving organization with over 500 active members.
+              Electronics & Telecommunication Engineering"NBA Accreditation to UG Program, Electronics & Telecommunication Engineering w.e.f 1 July 2014 to 30 June 2022 & 'A' Grade awarded by NAAC with CGPA 3.12 for 5 years w.e.f May 2017".Established in the year 1983, the department offers B. Tech. and M. Tech. degree courses in Electronics and Telecommunication Engineering. The departmental laboratories are equipped with state-of-the-art equipments and are approved by Sant Gadge Baba Amravati University as Research labs. Highly qualified, experienced and motivated faculty is the main backbone of the Department. The mission of the Department is to impart students with valuable knowledge through excellence in teaching, research and creative activities and mould them into highly competent and ethical technocrats to address the techno-social challenges with innovative solutions. There is large employment potential for Electronics & Telecommunication Engineering graduates in all sectors of industry like Electronics Industries, Communication Industries, Software Industries, and Research Sector.
               </p>
-              <p className="mt-4">
-                Over the years, EESA has organized countless workshops, hackathons, and industry visits. Our members 
-                have gone on to work at leading technology companies and research institutions around the world. 
-                Many have also founded their own startups, bringing innovative electronic products to market.
-              </p>
-              <p className="mt-4">
-                Today, EESA continues to evolve, embracing new technologies like IoT, AI-integrated electronics, 
-                and sustainable energy systems. We remain committed to our founding vision of empowering the next 
-                generation of electronics engineers.
-              </p>
+              
             </div>
           </div>
         </div>
@@ -143,9 +131,13 @@ export default function About() {
               <Card key={idx} className="card-elevated">
                 <CardContent className="p-6 text-center">
                   <Avatar className="w-20 h-20 mx-auto border-4 border-primary/10">
-                    <AvatarFallback className="bg-primary/10 text-primary text-2xl font-display">
-                      {member.name.charAt(0)}
-                    </AvatarFallback>
+                    {member.image ? (
+                      <AvatarImage src={member.image} alt={member.name} />
+                    ) : (
+                      <AvatarFallback className="bg-primary/10 text-primary text-2xl font-display">
+                        {member.name.charAt(0)}
+                      </AvatarFallback>
+                    )}
                   </Avatar>
                   <h3 className="mt-4 font-display font-semibold text-foreground">{member.name}</h3>
                   <p className="text-sm text-muted-foreground">{member.position}</p>
