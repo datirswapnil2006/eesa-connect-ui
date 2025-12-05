@@ -64,7 +64,7 @@ export default function Login() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@eesa.mail"
+                  placeholder="member.eesa.prmitr@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -75,7 +75,7 @@ export default function Login() {
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
 
-                  {/* ✅ FIXED FORGOT PASSWORD LINK */}
+                  {/* FORGOT PASSWORD LINK */}
                   <Link 
                     to="/forgot-password" 
                     className="text-sm text-primary hover:underline"
