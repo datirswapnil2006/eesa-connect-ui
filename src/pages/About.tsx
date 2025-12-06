@@ -4,6 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { RoleBadge } from '@/components/RoleBadge';
 import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react';
+import "../styles/profile.css";
+
 
 const values = [
   { icon: Lightbulb, title: 'Innovation', description: 'Pushing boundaries in electronics and technology.' },
@@ -130,15 +132,21 @@ export default function About() {
             {teamMembers.map((member, idx) => (
               <Card key={idx} className="card-elevated">
                 <CardContent className="p-6 text-center">
-                  <Avatar className="w-20 h-20 mx-auto border-4 border-primary/10">
+                  <Avatar className="w-28 h-28 mx-auto border-4 border-primary/10 overflow-hidden">
                     {member.image ? (
-                      <AvatarImage src={member.image} alt={member.name} />
+                      <AvatarImage 
+                        src={member.image} 
+                        alt={member.name} 
+                        className="profile-circle"
+                      />
                     ) : (
                       <AvatarFallback className="bg-primary/10 text-primary text-2xl font-display">
                         {member.name.charAt(0)}
                       </AvatarFallback>
                     )}
                   </Avatar>
+
+
                   <h3 className="mt-4 font-display font-semibold text-foreground">{member.name}</h3>
                   <p className="text-sm text-muted-foreground">{member.position}</p>
                   <div className="mt-2">

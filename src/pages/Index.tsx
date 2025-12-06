@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { RoleBadge } from '@/components/RoleBadge';
+import "@/styles/avatar-fix.css";
 import {
   Zap,
   Users,
@@ -192,7 +193,17 @@ export default function Index() {
                 <CardContent className="p-6">
                   <Avatar className="w-20 h-20 mx-auto border-4 border-primary/10">
                     {member.image ? (
-                      <AvatarImage src={member.image} alt={member.name} />
+                      <div className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center bg-gray-200">
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-full h-full object-cover object-top"
+                        />
+                      </div>
+
+
+
+
                     ) : (
                       <AvatarFallback className="bg-primary/10 text-primary text-2xl font-display">
                         {member.name.charAt(0)}
