@@ -6,6 +6,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import "./styles/avatar-fix.css";
 
+import React, { useEffect, useState } from "react";
+import { events } from "@/lib/events";
+import EventModal from "@/components/EventModal";
+
 // Pages
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -18,7 +22,7 @@ import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
-import ForgotPassword from "./pages/ForgotPassword";   // <-- ADDED
+import ForgotPassword from "./pages/ForgotPassword";
 
 // Dashboards
 import MemberDashboard from "./pages/dashboard/MemberDashboard";
@@ -28,37 +32,69 @@ import AlumniDashboard from "./pages/dashboard/AlumniDashboard";
 
 const queryClient = new QueryClient();
 
-// Protected Route Component
+/* ------------------------------------------------
+   EVENT POPUP AFTER LOGIN
+--------------------------------------------------- */
+function EventPopupOnLogin() {
+  const { user } = useAuth();
+  const [open, setOpen] = useState(false);
+  const [mainEvent, setMainEvent] = useState(events[0] ?? null);
+
+  useEffect(() => {
+    if (!user) return;
+
+    // Always show popup every login
+    setMainEvent(events[0] ?? null);
+    setOpen(true);
+  }, [user]);
+
+  return (
+    <EventModal
+      event={mainEvent}
+      open={open}
+      onOpenChange={(v: boolean) => setOpen(v)}
+      canRegister={!!user}
+    />
+  );
+}
+
+
+/* ------------------------------------------------
+   PROTECTED ROUTE
+--------------------------------------------------- */
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth();
-  
+
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
-  
+
   return <>{children}</>;
 }
 
-// Dashboard Router Component
+/* ------------------------------------------------
+   DASHBOARD ROUTER
+--------------------------------------------------- */
 function DashboardRouter() {
   const { user } = useAuth();
-  
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-  
+
+  if (!user) return <Navigate to="/login" replace />;
+
   switch (user.role) {
-    case 'admin':
+    case "admin":
       return <AdminDashboard />;
-    case 'faculty':
+    case "faculty":
       return <FacultyDashboard />;
-    case 'alumni':
+    case "alumni":
       return <AlumniDashboard />;
     default:
       return <MemberDashboard />;
   }
 }
 
+/* ------------------------------------------------
+   APP ROUTES
+--------------------------------------------------- */
 const AppRoutes = () => (
   <BrowserRouter>
     <Routes>
@@ -73,7 +109,7 @@ const AppRoutes = () => (
       <Route path="/signup" element={<Signup />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} /> {/* <-- ADDED */}
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* Dashboard Routes */}
       <Route
@@ -84,38 +120,7 @@ const AppRoutes = () => (
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/dashboard/member"
-        element={
-          <ProtectedRoute>
-            <MemberDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/dashboard/faculty"
-        element={
-          <ProtectedRoute>
-            <FacultyDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/dashboard/alumni"
-        element={
-          <ProtectedRoute>
-            <AlumniDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/dashboard/admin"
-        element={
-          <ProtectedRoute>
-            <AdminDashboard />
-          </ProtectedRoute>
-        }
-      />
+
       <Route
         path="/dashboard/*"
         element={
@@ -128,9 +133,15 @@ const AppRoutes = () => (
       {/* Catch-all */}
       <Route path="*" element={<NotFound />} />
     </Routes>
+
+    {/* Popup inside router */}
+    <EventPopupOnLogin />
   </BrowserRouter>
 );
 
+/* ------------------------------------------------
+   MAIN APP COMPONENT
+--------------------------------------------------- */
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>

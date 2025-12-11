@@ -1,4 +1,9 @@
-import { Link } from 'react-router-dom';
+// src/pages/Index.tsx
+import { events as allEvents } from "@/lib/events";
+import EventCard from "@/components/EventCard";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate, Link } from "react-router-dom";
+
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -6,6 +11,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { RoleBadge } from '@/components/RoleBadge';
 import "@/styles/avatar-fix.css";
+
 import {
   Zap,
   Users,
@@ -17,6 +23,8 @@ import {
   CircuitBoard,
   Radio,
 } from 'lucide-react';
+
+import React from 'react';
 
 const features = [
   {
@@ -42,21 +50,21 @@ const features = [
 ];
 
 const teamHighlights = [
-  { name: 'Dr. G. R. Bamnote', position: 'Principal of PRMITR' as const, role: 'faculty', image: '/Images/Principal.jpg' },
-  { name: 'Dr. S. V. Pattalwar', position: 'HOD of Electronics and Telecommunication Engineering' as const, role: 'faculty', image: '/Images/HOD.jpg' },
-  { name: 'Dr. A. I. Rokade', position: 'Faculty advisor of EESA' as const, role: 'faculty', image: '/Images/AIR.jpg' },
-  { name: 'Dr. N. S. Wadhe', position: 'Faculty coordinator of Career Development Forum' as const, role: 'faculty', image: '/Images/Wadhe sir.jpg' },
-  { name: 'Prof. S. A. Nirmal', position: 'Faculty coordinator of Core Electronics' as const, role: 'faculty', image: '/Images/Nirmal sir.jpg' },
-  { name: 'Prof. A. B. Pardikar', position: 'Faculty coordinator of IT Development Forum' as const, role: 'faculty', image: '/Images/Pardikar sir.jpg' },
-  { name: 'Dhruv Shinde', position: 'President of EESA' as const, role: 'member', image: '/Images/Dhruv.jpg' },
-  { name: 'Duhita Bute', position: 'Vice President of EESA' as const, role: 'member', image: '/Images/Duhita.jpg' },
-  { name: 'Swapnil Datir', position: 'Secretary of EESA' as const, role: 'member', image: '/Images/Swapnil.jpg' },
-  { name: 'Bhavesh Kale', position: 'Treasurer of EESA' as const, role: 'member', image: '/Images/Bhavesh.jpg' },
-  { name: 'Gauri Dharao', position: 'Chairman of Career Development Forum and executive member of EESA' as const, role: 'member', image: '/Images/Gauri.jpg' },
-  { name: 'Omkar Pimpalgaonkar', position: 'Chairman  of Core Electronics and executive member of EESA' as const, role: 'member', image: '/Images/Omkar.jpg' },
-  { name: 'Mayureshwar Shendre', position: 'Chairman of IT Development Forum and executive member of EESA' as const, role: 'member', image: '/Images/Mayureshwar.jpg' },
-  { name: 'Parth Zadey', position: 'Social Media Head of EESA' as const, role: 'member', image: '/Images/Parth.jpg' },
-  { name: 'Pranav Bankar', position: 'Tech Head of EESA' as const, role: 'member', image: '/Images/Pranav.jpg' },
+  { name: 'Dr. G. R. Bamnote', position: 'Principal of PRMITR', role: 'faculty', image: '/Images/Principal.jpg' },
+  { name: 'Dr. S. V. Pattalwar', position: 'HOD of Electronics and Telecommunication Engineering', role: 'faculty', image: '/Images/HOD.jpg' },
+  { name: 'Dr. A. I. Rokade', position: 'Faculty advisor of EESA', role: 'faculty', image: '/Images/AIR.jpg' },
+  { name: 'Dr. N. S. Wadhe', position: 'Faculty coordinator of Career Development Forum', role: 'faculty', image: '/Images/Wadhe sir.jpg' },
+  { name: 'Prof. S. A. Nirmal', position: 'Faculty coordinator of Core Electronics', role: 'faculty', image: '/Images/Nirmal sir.jpg' },
+  { name: 'Prof. A. B. Pardikar', position: 'Faculty coordinator of IT Development Forum', role: 'faculty', image: '/Images/Pardikar sir.jpg' },
+  { name: 'Dhruv Shinde', position: 'President of EESA', role: 'member', image: '/Images/Dhruv.jpg' },
+  { name: 'Duhita Bute', position: 'Vice President of EESA', role: 'member', image: '/Images/Duhita.jpg' },
+  { name: 'Swapnil Datir', position: 'Secretary of EESA', role: 'member', image: '/Images/Swapnil.jpg' },
+  { name: 'Bhavesh Kale', position: 'Treasurer of EESA', role: 'member', image: '/Images/Bhavesh.jpg' },
+  { name: 'Gauri Dharao', position: 'Chairman of Career Development Forum and executive member of EESA', role: 'member', image: '/Images/Gauri.jpg' },
+  { name: 'Omkar Pimpalgaonkar', position: 'Chairman  of Core Electronics and executive member of EESA', role: 'member', image: '/Images/Omkar.jpg' },
+  { name: 'Mayureshwar Shendre', position: 'Chairman of IT Development Forum and executive member of EESA', role: 'member', image: '/Images/Mayureshwar.jpg' },
+  { name: 'Parth Zadey', position: 'Social Media Head of EESA', role: 'member', image: '/Images/Parth.jpg' },
+  { name: 'Pranav Bankar', position: 'Tech Head of EESA', role: 'member', image: '/Images/Pranav.jpg' },
 ];
 
 const stats = [
@@ -67,6 +75,9 @@ const stats = [
 ];
 
 export default function Index() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -108,6 +119,8 @@ export default function Index() {
                 </Button>
               </Link>
             </div>
+
+            
 
             {/* Floating Icons */}
             <div className="absolute left-[10%] top-1/3 opacity-20">
@@ -200,10 +213,6 @@ export default function Index() {
                           className="w-full h-full object-cover object-top"
                         />
                       </div>
-
-
-
-
                     ) : (
                       <AvatarFallback className="bg-primary/10 text-primary text-2xl font-display">
                         {member.name.charAt(0)}
