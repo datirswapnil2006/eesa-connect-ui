@@ -136,13 +136,15 @@ const filteredTeam =
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {allEvents.map(event => (
         <EventCard
-          key={event.id}
-          event={event}
-          canRegister={!!user}
-          onRegister={() => {
-            if (!user) navigate("/login");
-          }}
-        />
+  key={event.id}
+  event={event}
+  canRegister={!!user}
+  onView={() => navigate("/events")}
+  onRegister={() => {
+    if (!user) navigate("/login");
+  }}
+/>
+
       ))}
     </div>
   </div>

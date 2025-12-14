@@ -1,46 +1,39 @@
-import React from "react";
 import { EventItem } from "@/lib/events";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { useAuth } from "@/context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   event: EventItem;
-  onRegister?: (event: EventItem) => void;
-  canRegister?: boolean;
+  onView: () => void;
+  onRegister: () => void;
+  canRegister: boolean;
 };
 
 export default function EventCard({
   event,
+  onView,
   onRegister,
-  canRegister = true,
+  canRegister,
 }: Props) {
   const date = new Date(event.dateISO);
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  const handleRegister = () => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-    onRegister?.(event);
-  };
 
   return (
-    <div className="p-4 rounded-lg shadow-sm bg-card">
+    <div className="p-5 rounded-lg bg-card shadow">
       <h3 className="text-lg font-semibold">{event.title}</h3>
 
       <p className="text-sm text-muted-foreground mt-1">
-        {event.location ?? ""} • {format(date, "PPP p")}
+        {event.location} • {format(date, "PPP p")}
       </p>
 
-      <p className="mt-2 text-sm">{event.description}</p>
+      <p className="mt-3 text-sm">{event.description}</p>
 
-      <div className="mt-4 flex justify-end">
-        <Button onClick={handleRegister} disabled={!canRegister}>
-          {user ? "Register" : "Login to Register"}
+      <div className="mt-5 flex justify-between">
+        <Button variant="outline" onClick={onView}>
+          View
+        </Button>
+
+        <Button onClick={onRegister} disabled={!canRegister}>
+          {canRegister ? "Register" : "Login to Register"}
         </Button>
       </div>
     </div>
