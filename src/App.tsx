@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import "./styles/avatar-fix.css";
 
+
 import React, { useEffect, useState } from "react";
 import { events } from "@/lib/events";
 import EventModal from "@/components/EventModal";
@@ -23,6 +24,9 @@ import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import ForgotPassword from "./pages/ForgotPassword";
+import Events from "./pages/Events";
+
+
 
 // Dashboards
 import MemberDashboard from "./pages/dashboard/MemberDashboard";
@@ -100,6 +104,7 @@ const AppRoutes = () => (
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Index />} />
+      <Route path="/events" element={<Events />} />
       <Route path="/about" element={<About />} />
       <Route path="/alumni" element={<Alumni />} />
       <Route path="/gallery" element={<Gallery />} />
@@ -110,6 +115,9 @@ const AppRoutes = () => (
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      
+
+
 
       {/* Dashboard Routes */}
       <Route

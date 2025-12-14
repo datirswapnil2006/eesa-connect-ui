@@ -24,7 +24,8 @@ import {
   Radio,
 } from 'lucide-react';
 
-import React from 'react';
+import React, { useState } from 'react';
+
 
 const features = [
   {
@@ -77,6 +78,13 @@ const stats = [
 export default function Index() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [selectedRole, setSelectedRole] = useState<'all' | 'faculty' | 'member'>('all');
+
+const filteredTeam =
+  selectedRole === 'all'
+    ? teamHighlights
+    : teamHighlights.filter((person) => person.role === selectedRole);
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -119,6 +127,27 @@ export default function Index() {
                 </Button>
               </Link>
             </div>
+
+            {/* event*/}
+            <section className="py-20 bg-muted/50">
+  <div className="container mx-auto px-4">
+    <h2 className="text-3xl font-bold mb-6 text-center">Upcoming Events</h2>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {allEvents.map(event => (
+        <EventCard
+          key={event.id}
+          event={event}
+          canRegister={!!user}
+          onRegister={() => {
+            if (!user) navigate("/login");
+          }}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
 
             
 
@@ -192,16 +221,42 @@ export default function Index() {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-              Meet Our Community
-            </h2>
-            <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
-              Led by experienced faculty and driven by passionate students
-            </p>
-          </div>
+  <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+    Meet Our Community
+  </h2>
+  <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
+    Led by experienced faculty and driven by passionate students
+  </p>
+
+  {/* Filter Buttons */}
+  <div className="mt-6 flex justify-center gap-3">
+    <Button
+      variant={selectedRole === 'all' ? 'default' : 'outline'}
+      onClick={() => setSelectedRole('all')}
+    >
+      All
+    </Button>
+
+    <Button
+      variant={selectedRole === 'faculty' ? 'default' : 'outline'}
+      onClick={() => setSelectedRole('faculty')}
+    >
+      Faculty
+    </Button>
+
+    <Button
+      variant={selectedRole === 'member' ? 'default' : 'outline'}
+      onClick={() => setSelectedRole('member')}
+    >
+      Members
+    </Button>
+  </div>
+</div>
+
           
           <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            {teamHighlights.map((member, idx) => (
+            {filteredTeam.map((member, idx) => (
+
               <Card key={idx} className="card-elevated text-center">
                 <CardContent className="p-6">
                   <Avatar className="w-20 h-20 mx-auto border-4 border-primary/10">

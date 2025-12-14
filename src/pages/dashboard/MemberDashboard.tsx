@@ -8,6 +8,10 @@ import { Badge } from '@/components/ui/badge';
 import { MessageSquare, BookOpen, User, AlertTriangle, TrendingUp } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 
+import { events } from '@/lib/events';
+import { getRegistrations } from '@/lib/eventRegistration';
+import EventCard from '@/components/EventCard';
+
 export default function MemberDashboard() {
   const { user } = useAuth();
 
@@ -23,6 +27,10 @@ export default function MemberDashboard() {
   ];
   const completedFields = fields.filter(Boolean).length;
   const profileCompleteness = Math.round((completedFields / fields.length) * 100);
+
+  const registeredEvents = events.filter(event =>
+    getRegistrations(user.id).includes(event.id)
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -46,7 +54,9 @@ export default function MemberDashboard() {
             <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground">
               Welcome back, {user.name.split(' ')[0]}!
             </h1>
-            <p className="mt-1 text-muted-foreground">Here's an overview of your EESA profile and activities.</p>
+            <p className="mt-1 text-muted-foreground">
+              Here's an overview of your EESA profile and activities.
+            </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-6">
@@ -68,7 +78,9 @@ export default function MemberDashboard() {
                 <CardContent>
                   <div className="flex items-center gap-4">
                     <Progress value={profileCompleteness} className="flex-1" />
-                    <span className="text-sm font-medium text-foreground">{profileCompleteness}%</span>
+                    <span className="text-sm font-medium text-foreground">
+                      {profileCompleteness}%
+                    </span>
                   </div>
                   {profileCompleteness < 100 && (
                     <p className="mt-2 text-sm text-muted-foreground">
@@ -123,6 +135,28 @@ export default function MemberDashboard() {
                 </Card>
               </div>
 
+              {/* My Registered Events */}
+              <Card className="card-elevated">
+                <CardHeader>
+                  <CardTitle className="text-lg">
+                    My Registered Events
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {registeredEvents.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      You have not registered for any events yet.
+                    </p>
+                  ) : (
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {registeredEvents.map(event => (
+                        <EventCard key={event.id} event={event} />
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
               {/* Recent Activity */}
               <Card className="card-elevated">
                 <CardHeader>
@@ -135,17 +169,27 @@ export default function MemberDashboard() {
                       { action: 'Joined forum', target: 'IT Development', time: '1 day ago' },
                       { action: 'Updated profile', target: 'Added new skills', time: '3 days ago' },
                     ].map((activity, idx) => (
-                      <div key={idx} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between py-2 border-b border-border last:border-0"
+                      >
                         <div>
-                          <span className="text-sm text-muted-foreground">{activity.action} </span>
-                          <span className="text-sm font-medium text-foreground">{activity.target}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {activity.action}{' '}
+                          </span>
+                          <span className="text-sm font-medium text-foreground">
+                            {activity.target}
+                          </span>
                         </div>
-                        <Badge variant="secondary" className="text-xs">{activity.time}</Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          {activity.time}
+                        </Badge>
                       </div>
                     ))}
                   </div>
                 </CardContent>
               </Card>
+
             </div>
           </div>
         </div>

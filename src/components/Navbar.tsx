@@ -19,6 +19,7 @@ const navLinks = [
   { name: 'Gallery', path: '/gallery' },
   { name: 'Forums', path: '/forums' },
   { name: 'Blog', path: '/blog' },
+  { name: 'Events', path: '/events' },
 ];
 
 export function Navbar() {

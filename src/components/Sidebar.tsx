@@ -21,7 +21,8 @@ interface NavItem {
   name: string;
   path: string;
   icon: React.ElementType;
-  roles: ('admin' | 'faculty' | 'member')[];
+  roles: ('admin' | 'faculty' | 'member' | 'alumni')[];
+
 }
 
 const navItems: NavItem[] = [
