@@ -9,13 +9,13 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 const eventTags = ['All', 'Workshops', 'Inauguration', 'Seminars', 'Social Events', 'Projects', 'Team'];
 
 const galleryItems = [
-  { id: 1, tag: 'Workshops', caption: 'Arduino Workshop 2024', color: 'from-blue-500 to-cyan-400' },
+  { id: 1, tag: 'Workshops', caption: 'VLSI Workshop 2025', color: 'from-blue-500 to-cyan-400',imageUrl: '/Images/VLSI2025.jpg' },
   { 
     id: 2, 
     tag: 'Inauguration',
     caption: 'Inaugural Intro Video', 
     color: 'from-purple-500 to-pink-400',
-    videoUrl: '/Images/InauguralIntro.mp4',
+    videoUrl: '/Images/InaugrationIntro.mp4',
     imageUrl: '/Images/GroupPhoto2.jpg',
   },
   { id: 3, tag: 'Seminars', caption: 'Industry Expert Talk', color: 'from-green-500 to-teal-400' },

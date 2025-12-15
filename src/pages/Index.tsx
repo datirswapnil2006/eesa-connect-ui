@@ -128,31 +128,7 @@ const filteredTeam =
               </Link>
             </div>
 
-            {/* event*/}
-            <section className="py-20 bg-muted/50">
-  <div className="container mx-auto px-4">
-    <h2 className="text-3xl font-bold mb-6 text-center">Upcoming Events</h2>
-
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {allEvents.map(event => (
-        <EventCard
-  key={event.id}
-  event={event}
-  canRegister={!!user}
-  onView={() => navigate("/events")}
-  onRegister={() => {
-    if (!user) navigate("/login");
-  }}
-/>
-
-      ))}
-    </div>
-  </div>
-</section>
-
-
             
-
             {/* Floating Icons */}
             <div className="absolute left-[10%] top-1/3 opacity-20">
               <Cpu className="w-16 h-16 text-primary-foreground animate-float" />
