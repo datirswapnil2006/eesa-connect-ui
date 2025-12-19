@@ -7,8 +7,11 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 
+
 export default function Events() {
   const { user } = useAuth();
+
+  const isAdmin = user?.role === "admin";
 
   const [statusFilter, setStatusFilter] =
     useState<"upcoming" | "past">("upcoming");
@@ -30,7 +33,6 @@ export default function Events() {
     <>
       <Navbar />
 
-      {/* 🔥 FIX: heading cutting issue */}
       <div className="container mx-auto px-4 pt-32 pb-12">
         <h1 className="text-3xl font-bold mb-6">Events</h1>
 
@@ -68,26 +70,33 @@ export default function Events() {
             <EventCard
               key={event.id}
               event={event}
-              canRegister={!!user}
-              onView={() => {
-                setSelectedEvent(event);
-                setOpen(true);
-              }}
+              canRegister={!!user && !isAdmin}
               onRegister={() => {
                 alert(`Registered for ${event.title}`);
               }}
+              // ✅ View button ONLY for non-admin
+              onView={
+                isAdmin
+                  ? undefined
+                  : () => {
+                      setSelectedEvent(event);
+                      setOpen(true);
+                    }
+              }
             />
           ))}
         </div>
       </div>
 
-      {/* ✅ View Popup */}
-      <EventModal
-        event={selectedEvent}
-        open={open}
-        onOpenChange={setOpen}
-        canRegister={!!user}
-      />
+      {/* ✅ Popup COMPLETELY BLOCKED for admin */}
+      {!isAdmin && (
+        <EventModal
+          event={selectedEvent}
+          open={open}
+          onOpenChange={setOpen}
+          canRegister={!!user}
+        />
+      )}
 
       <Footer />
     </>

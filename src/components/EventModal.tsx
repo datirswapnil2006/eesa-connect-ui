@@ -1,4 +1,3 @@
-// src/components/EventModal.tsx
 import React from "react";
 import {
   Dialog,
@@ -14,6 +13,7 @@ import { EventItem } from "@/lib/events";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
+import { useAuth } from "@/context/AuthContext";
 
 type Props = {
   event: EventItem | null;
@@ -22,17 +22,25 @@ type Props = {
   canRegister: boolean;
 };
 
-export default function EventModal({ event, open, onOpenChange, canRegister }: Props) {
+export default function EventModal({
+  event,
+  open,
+  onOpenChange,
+  canRegister,
+}: Props) {
   const navigate = useNavigate();
-  if (!event) return null;
+  const { user } = useAuth();
+
+  // 🔒 HARD BLOCK: admin can NEVER see popup
+  if (!event || user?.role === "admin") return null;
 
   const handleRegister = () => {
-    // If you have external registration URL, use it; otherwise navigate to internal route
     if (!canRegister) {
       navigate("/login");
       onOpenChange(false);
       return;
     }
+
     if (event.registrationUrl) {
       navigate(event.registrationUrl);
       onOpenChange(false);
@@ -48,9 +56,15 @@ export default function EventModal({ event, open, onOpenChange, canRegister }: P
             <DialogTitle>{event.title}</DialogTitle>
             <DialogDescription className="mt-2">
               <div className="text-sm">
-                <strong>Date:</strong> {format(new Date(event.dateISO), "PPP p")}
+                <strong>Date:</strong>{" "}
+                {format(new Date(event.dateISO), "PPP p")}
                 <br />
-                {event.location ? <><strong>Location:</strong> {event.location}<br/></> : null}
+                {event.location && (
+                  <>
+                    <strong>Location:</strong> {event.location}
+                    <br />
+                  </>
+                )}
                 <div className="mt-2">{event.description}</div>
               </div>
             </DialogDescription>

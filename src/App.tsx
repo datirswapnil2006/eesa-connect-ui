@@ -45,22 +45,31 @@ function EventPopupOnLogin() {
   const [mainEvent, setMainEvent] = useState(events[0] ?? null);
 
   useEffect(() => {
-    if (!user) return;
+    // 🔒 Only open popup when:
+    // 1. user exists
+    // 2. user is NOT admin
+    if (!user || user.role === "admin") {
+      setOpen(false); // 👈 CLOSE popup on logout
+      return;
+    }
 
-    // Always show popup every login
     setMainEvent(events[0] ?? null);
     setOpen(true);
   }, [user]);
+
+  // 🔒 Extra safety: never render modal for admin or guest
+  if (!user || user.role === "admin") return null;
 
   return (
     <EventModal
       event={mainEvent}
       open={open}
-      onOpenChange={(v: boolean) => setOpen(v)}
+      onOpenChange={setOpen}
       canRegister={!!user}
     />
   );
 }
+
 
 
 /* ------------------------------------------------

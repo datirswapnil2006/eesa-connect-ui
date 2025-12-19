@@ -16,7 +16,7 @@ const galleryItems = [
     caption: 'Inaugural Intro Video', 
     color: 'from-purple-500 to-pink-400',
     videoUrl: '/Images/InaugrationIntro.mp4',
-    imageUrl: '/Images/GroupPhoto2.jpg',
+    
   },
   { id: 3, tag: 'Seminars', caption: 'Industry Expert Talk', color: 'from-green-500 to-teal-400' },
   { id: 4, tag: 'Social Events', caption: 'Welcome Party 2024', color: 'from-orange-500 to-yellow-400' },
@@ -34,7 +34,7 @@ const galleryItems = [
     caption: 'Team Introduction Video', 
     color: 'from-indigo-500 to-purple-400',
     videoUrl: '/Images/TeamIntro.mp4',   
-    imageUrl: '/Images/GroupPhoto2.jpg',
+    
   },
 ];
 
