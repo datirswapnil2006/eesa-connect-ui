@@ -1,73 +1,107 @@
-# Welcome to your Lovable project
+# EESA Connect UI 🎓⚡
 
-## Project info
+EESA Connect UI is a modern web application built for the **Electronics Engineering Students Association (EESA)** to manage events, members, authentication, and community interaction.  
+The project is developed using **React + TypeScript + Vite** with **ShadCN UI** and **Tailwind CSS** for a fast and responsive user experience.
 
-**URL**: https://lovable.dev/projects/fa8d5ab3-0879-4eee-8f1f-47b587e3c464
+## 🚀 Tech Stack
 
-## How can I edit this code?
+- **Frontend Framework:** React (with TypeScript)
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS
+- **UI Components:** ShadCN UI, Radix UI
+- **State & Forms:** React Hook Form
+- **Routing:** React Router
+- **Icons:** Lucide React
+- **Linting:** ESLint
 
-There are several ways of editing your application.
+## 📁 Project Structure
 
-**Use Lovable**
+eesa-connect-ui/
+│
+├── public/ # Static assets
+├── src/
+│ ├── components/ # Reusable UI components
+│ ├── context/ # Context providers (Auth, etc.)
+│ ├── hooks/ # Custom React hooks
+│ ├── lib/ # Utility functions & data
+│ ├── pages/ # Application pages (Home, Events, Profile, etc.)
+│ ├── styles/ # Custom CSS files
+│ ├── App.tsx # Main App component
+│ ├── main.tsx # App entry point
+│ └── index.css # Global styles
+│
+├── index.html # HTML template
+├── package.json # Project configuration
+├── tailwind.config.ts # Tailwind configuration
+├── vite.config.ts # Vite configuration
+├── tsconfig.json # TypeScript configuration
+└── eslint.config.js # ESLint configuration
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fa8d5ab3-0879-4eee-8f1f-47b587e3c464) and start prompting.
+ 
+ ✨ Features
 
-Changes made via Lovable will be committed automatically to this repo.
+- 🔐 User Authentication (Login / Signup)
+- 👥 Faculty & Student Member Management
+- 📅 Events Listing & Details
+- 🧭 Responsive Navbar & Footer
+- 🎨 Modern UI using ShadCN + Tailwind
+- ⚡ Fast performance with Vite
+- 🛠 Scalable folder structure
 
-**Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+ 🛠 Installation & Setup
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+ 1️⃣ Clone the repository
+  git clone <your-repository-url>
+  cd eesa-connect-ui
 
-Follow these steps:
+2️⃣ Install dependencies
+  npm install
+  
+3️⃣ Start development server
+  npm run dev
+  The app will run at:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+http://localhost:5173
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+npm run dev	Start development server
+npm run build	Build for production
+npm run preview	Preview production build
+npm run lint	Run ESLint
 
-# Step 3: Install the necessary dependencies.
-npm i
+🧪 Build for Production
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+npm run build
+Output will be generated in the dist/ folder.
 
-**Edit a file directly in GitHub**
+🤝 Contribution Guidelines
+Fork the repository
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Create a new branch
 
-**Use GitHub Codespaces**
+bash
+Copy code
+git checkout -b feature-name
+Commit your changes
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Push to your fork
 
-## What technologies are used for this project?
+Create a Pull Request
 
-This project is built with:
+📄 License
+This project is created for educational and organizational purposes for EESA.
+License can be updated as per institution requirements.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+👨‍💻 Developed By
+Electronics Engineering Students Association (EESA)
+PRMIT&R, Amravati
 
-## How can I deploy this project?
+📞 Support
+If you face any issues or need improvements:
 
-Simply open [Lovable](https://lovable.dev/projects/fa8d5ab3-0879-4eee-8f1f-47b587e3c464) and click on Share -> Publish.
+Open an issue in the repository
 
-## Can I connect a custom domain to my Lovable project?
+Or contact the project maintainers
 
-Yes, you can!
+⭐ If you like this project, don’t forget to star the repository!
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
