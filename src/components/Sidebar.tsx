@@ -26,15 +26,15 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, roles: ['admin', 'faculty', 'member'] },
-  { name: 'My Profile', path: '/dashboard/profile', icon: User, roles: ['admin', 'faculty', 'member'] },
-  { name: 'Forums', path: '/dashboard/forums', icon: MessageSquare, roles: ['admin', 'faculty', 'member'] },
+  { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, roles: ['admin', 'faculty', 'member', 'alumni'] },
+  { name: 'My Profile', path: '/dashboard/profile', icon: User, roles: ['admin', 'faculty', 'member', 'alumni'] },
+  { name: 'Forums', path: '/dashboard/forums', icon: MessageSquare, roles: ['admin', 'faculty', 'member', 'alumni'] },
   { name: 'Blog Posts', path: '/dashboard/blog', icon: FileText, roles: ['admin', 'faculty'] },
   { name: 'Gallery', path: '/dashboard/gallery', icon: Image, roles: ['admin'] },
   { name: 'User Management', path: '/dashboard/users', icon: Users, roles: ['admin'] },
   { name: 'Moderation', path: '/dashboard/moderation', icon: Shield, roles: ['admin'] },
   { name: 'My Comments', path: '/dashboard/comments', icon: BookOpen, roles: ['member'] },
-  { name: 'Settings', path: '/dashboard/settings', icon: Settings, roles: ['admin', 'faculty', 'member'] },
+  { name: 'Settings', path: '/dashboard/settings', icon: Settings, roles: ['admin', 'faculty', 'member', 'alumni'] },
 ];
 
 export function Sidebar() {

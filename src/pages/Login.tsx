@@ -33,7 +33,8 @@ export default function Login() {
       });
       navigate('/dashboard');
     } catch (err) {
-      setError('Invalid email or password. Try: admin@eesa.prmitr, faculty@eesa.prmitr, or member@eesa.prmitr');
+      // UPDATED ERROR MESSAGE BELOW TO MATCH DEMO EMAILS
+      setError('Invalid email or password. Try: admin.eesa.prmitr@gmail.com, faculty.eesa.prmitr@gmail.com, or member.eesa.prmitr@gmail.com');
     } finally {
       setIsLoading(false);
     }
@@ -74,8 +75,6 @@ export default function Login() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-
-                  {/* FORGOT PASSWORD LINK */}
                   <Link 
                     to="/forgot-password" 
                     className="text-sm text-primary hover:underline"
