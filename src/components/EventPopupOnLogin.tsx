@@ -12,7 +12,7 @@ export default function EventPopupOnLogin() {
   useEffect(() => {
     if (!user) return;
 
-    // ✅ take first event safely
+    
     if (events.length > 0) {
       setEvent(events[0]);
       setOpen(true);

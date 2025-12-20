@@ -34,7 +34,7 @@ export default function Login() {
       navigate('/dashboard');
     } catch (err) {
       // UPDATED ERROR MESSAGE BELOW TO MATCH DEMO EMAILS
-      setError('Invalid email or password. Try: admin.eesa.prmitr@gmail.com, faculty.eesa.prmitr@gmail.com, or member.eesa.prmitr@gmail.com');
+      setError('Invalid email or password. Try: admin.eesa@gmail.com, faculty.eesa@gmail.com, or member.eesa@gmail.com');
     } finally {
       setIsLoading(false);
     }
@@ -65,7 +65,7 @@ export default function Login() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="member.eesa.prmitr@gmail.com"
+                  placeholder="member.eesa@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -119,10 +119,10 @@ export default function Login() {
             <div className="mt-6 p-4 rounded-lg bg-muted/50">
               <p className="text-xs text-muted-foreground text-center mb-2">Demo credentials (any password):</p>
               <div className="space-y-1 text-xs text-center">
-                <p><span className="font-medium">Admin:</span> admin.eesa.prmitr@gmail.com</p>
-                <p><span className="font-medium">Faculty:</span> faculty.eesa.prmitr@gmail.com</p>
-                <p><span className="font-medium">Member:</span> member.eesa.prmitr@gmail.com</p>
-                <p><span className="font-medium">Alumni:</span> alumni.eesa.prmitr@gmail.com</p>
+                <p><span className="font-medium">Admin:</span> admin.eesa@gmail.com</p>
+                <p><span className="font-medium">Faculty:</span> faculty.eesa@gmail.com</p>
+                <p><span className="font-medium">Member:</span> member.eesa@gmail.com</p>
+                <p><span className="font-medium">Alumni:</span> alumni.eesa@gmail.com</p>
               </div>
             </div>
           </CardContent>

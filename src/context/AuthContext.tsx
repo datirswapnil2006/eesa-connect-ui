@@ -35,7 +35,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const mockUsers: User[] = [
   {
     id: '1',
-    email: 'admin@eesa.edu',
+    email: 'admin.eesa@gmail.com',
     name: 'Dr. Sarah Chen',
     role: 'admin',
     approved: true,
@@ -46,7 +46,7 @@ const mockUsers: User[] = [
   },
   {
     id: '2',
-    email: 'faculty@eesa.edu',
+    email: 'faculty.eesa@gmail.com',
     name: 'Prof. James Wilson',
     role: 'faculty',
     approved: true,
@@ -57,7 +57,7 @@ const mockUsers: User[] = [
   },
   {
     id: '3',
-    email: 'member@eesa.edu',
+    email: 'member.eesa@gmail.com',
     name: 'Alex Johnson',
     role: 'member',
     approved: true,
@@ -65,6 +65,17 @@ const mockUsers: User[] = [
     skills: ['Arduino', 'PCB Design', 'Python'],
     bio: 'Aspiring embedded systems engineer.',
     achievements: ['Hackathon Winner 2024'],
+  },
+  {
+    id: '4', 
+    email: 'alumni.eesa@gmail.com',
+    name: 'Rahul Mehta',
+    role: 'alumni',
+    approved: true,
+    position: 'Embedded Systems Engineer @ Bosch',
+    skills: ['Embedded C', 'IoT', 'RTOS'],
+    bio: 'EESA alumni working in the core electronics industry.',
+    achievements: ['Placed in Bosch', 'Industry Mentor'],
   },
 ];
 
