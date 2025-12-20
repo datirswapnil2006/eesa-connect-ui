@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
+import { Card, CardContent } from '@/components/ui/card';
 
 type AlumniType = {
   id: number;
@@ -71,69 +74,79 @@ export default function Alumni() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-4">EESA Alumni</h1>
-      <p className="text-muted-foreground mb-6">
-        Welcome to the Alumni page — demo profiles and highlights from past members.
-      </p>
+    <div className="min-h-screen bg-background">
+      <Navbar />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {demoAlumni.map(person => (
-          <article
-            key={person.id}
-            className="bg-card rounded-lg shadow-sm overflow-hidden"
-          >
-            <div className={`w-full h-40 bg-gradient-to-r ${person.color}`} />
+      {/* Hero */}
+      <section className="pt-24 pb-16 gradient-hero relative overflow-hidden">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground">
+            Our Alumni
+          </h1>
+          <p className="mt-4 text-lg text-primary-foreground/80 max-w-2xl mx-auto">
+            Celebrating the professionals who once shaped EESA and continue to inspire us
+          </p>
+        </div>
+      </section>
 
-            <div className="p-4">
-              <div className="flex items-baseline justify-between">
-                <h2 className="text-lg font-semibold">{person.name}</h2>
-                <span className="text-xs text-muted-foreground">
-                  Class of {person.gradYear}
-                </span>
-              </div>
+      {/* Alumni Cards */}
+      <section className="py-20 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {demoAlumni.map(person => (
+              <Card key={person.id} className="card-elevated overflow-hidden">
+                <div className={`h-36 bg-gradient-to-r ${person.color}`} />
 
-              <p className="text-sm text-muted-foreground mt-1">
-                {person.role}
-              </p>
+                <CardContent className="p-6 text-center">
+                  <h3 className="font-display font-semibold text-foreground">
+                    {person.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {person.role}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Class of {person.gradYear}
+                  </p>
 
-              <p className="text-sm text-muted-foreground mt-3">
-                {person.bio}
-              </p>
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    {person.bio}
+                  </p>
 
-              <div className="mt-4 flex items-center justify-between">
-                <button
-                  onClick={() => {
-                    setSelectedAlumni(person);
-                    setModalType('profile');
-                  }}
-                  className="text-primary hover:underline"
-                >
-                  View profile
-                </button>
+                  <div className="mt-4 flex items-center justify-between">
+                    <button
+                      onClick={() => {
+                        setSelectedAlumni(person);
+                        setModalType('profile');
+                      }}
+                      className="text-primary hover:underline text-sm"
+                    >
+                      View profile
+                    </button>
 
-                <button
-                  onClick={() => {
-                    setSelectedAlumni(person);
-                    setModalType('contact');
-                  }}
-                  className="text-sm px-3 py-1 rounded-md bg-primary/10 text-primary"
-                >
-                  Contact
-                </button>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+                    <button
+                      onClick={() => {
+                        setSelectedAlumni(person);
+                        setModalType('contact');
+                      }}
+                      className="text-sm px-3 py-1 rounded-md bg-primary/10 text-primary"
+                    >
+                      Contact
+                    </button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-      <div className="mt-8">
-        <Link to="/" className="text-primary hover:underline">
-          Back to Home
-        </Link>
-      </div>
+          <div className="text-center mt-10">
+            <Link to="/" className="text-primary hover:underline">
+              Back to Home
+            </Link>
+          </div>
+        </div>
+      </section>
 
-      {/* MODAL */}
+      {/* Modal */}
       {selectedAlumni && modalType && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg max-w-md w-full p-6 relative">
@@ -206,6 +219,8 @@ export default function Alumni() {
           </div>
         </div>
       )}
+
+      <Footer />
     </div>
   );
 }

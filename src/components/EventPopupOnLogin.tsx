@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useLoggedInUser } from "@/context/AuthContext"; 
-import { getUpcomingEvent } from "@/lib/events";
+import { useAuth } from "@/context/AuthContext";
+import { events } from "@/lib/events";
 import EventModal from "./EventModal";
+import type { EventItem } from "@/lib/events";
 
 export default function EventPopupOnLogin() {
-  const { user } = useLoggedInUser(); // checks login user from your auth context
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
-  const [event, setEvent] = useState(null);
+  const [event, setEvent] = useState<EventItem | null>(null);
 
   useEffect(() => {
-    if (user) {
-      const upcoming = getUpcomingEvent();
-      if (upcoming) {
-        setEvent(upcoming);
-        setOpen(true);      // show popup when logged-in
-      }
+    if (!user) return;
+
+    // ✅ take first event safely
+    if (events.length > 0) {
+      setEvent(events[0]);
+      setOpen(true);
     }
   }, [user]);
 
@@ -25,7 +26,7 @@ export default function EventPopupOnLogin() {
       event={event}
       open={open}
       onOpenChange={setOpen}
-      canRegister={!!user}
+      canRegister={true}
     />
   );
 }
