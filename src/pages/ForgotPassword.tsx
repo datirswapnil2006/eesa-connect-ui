@@ -50,7 +50,7 @@ export default function ForgotPassword() {
       <div className="pt-24 pb-12 flex items-center justify-center px-4">
         <Card className="w-full max-w-md card-elevated">
           <CardHeader className="text-center">
-            <img src="/eesa logo.jpg" alt="EESA logo" className="w-14 h-14 object-contain mx-auto mb-4" />
+            <img src="/eesa-logo.jpg" alt="EESA logo" className="w-14 h-14 object-contain mx-auto mb-4" />
             <CardTitle className="font-display text-2xl">Reset your password</CardTitle>
             <CardDescription>Enter your email and we'll send reset instructions</CardDescription>
           </CardHeader>

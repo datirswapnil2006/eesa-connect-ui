@@ -1,9 +1,8 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 import "./styles/avatar-fix.css";
 
 import React, { useEffect, useState } from "react";
@@ -31,11 +30,9 @@ import FacultyDashboard from "./pages/dashboard/FacultyDashboard";
 import AdminDashboard from "./pages/dashboard/AdminDashboard";
 import AlumniDashboard from "./pages/dashboard/AlumniDashboard";
 
-const queryClient = new QueryClient();
-
-/* ------------------------------------------------
+/* 
    EVENT POPUP AFTER LOGIN
---------------------------------------------------- */
+*/
 function EventPopupOnLogin() {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
@@ -46,7 +43,6 @@ function EventPopupOnLogin() {
       setOpen(false);
       return;
     }
-
     setMainEvent(events[0] ?? null);
     setOpen(true);
   }, [user]);
@@ -63,9 +59,9 @@ function EventPopupOnLogin() {
   );
 }
 
-/* ------------------------------------------------
+/* 
    PROTECTED ROUTE
---------------------------------------------------- */
+ */
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth();
 
@@ -76,9 +72,9 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-/* ------------------------------------------------
+/*
    DASHBOARD ROUTER
---------------------------------------------------- */
+*/
 function DashboardRouter() {
   const { user } = useAuth();
 
@@ -96,14 +92,13 @@ function DashboardRouter() {
   }
 }
 
-/* ------------------------------------------------
-   ROUTES
---------------------------------------------------- */
+/* 
+   APP ROUTES
+ */
 function AppRoutes() {
   return (
     <>
       <Routes>
-        {/* Public Routes */}
         <Route path="/" element={<Index />} />
         <Route path="/events" element={<Events />} />
         <Route path="/about" element={<About />} />
@@ -117,7 +112,6 @@ function AppRoutes() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* Dashboard */}
         <Route
           path="/dashboard/*"
           element={
@@ -127,31 +121,23 @@ function AppRoutes() {
           }
         />
 
-        {/* Catch-all */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      {/* Event Popup */}
       <EventPopupOnLogin />
     </>
   );
 }
 
-/* ------------------------------------------------
-   MAIN APP (FIXED ORDER)
---------------------------------------------------- */
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <AuthProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <AppRoutes />
-        </TooltipProvider>
-      </AuthProvider>
-    </BrowserRouter>
-  </QueryClientProvider>
-);
-
-export default App;
+/* 
+   MAIN APP COMPONENT
+ */
+export default function App() {
+  return (
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <AppRoutes />
+    </TooltipProvider>
+  );
+}

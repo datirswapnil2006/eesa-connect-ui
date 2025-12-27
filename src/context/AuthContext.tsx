@@ -16,6 +16,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   signup: (email: string, name: string, role: UserRole) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -57,6 +58,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  // FORGOT PASSWORD
+  const resetPassword = async (email: string) => {
+    await axios.post(`${API_BASE}/api/auth/forgot-password`, {
+      email,
+    });
+  };
+
   const logout = () => {
     setUser(null);
     navigate("/login");
@@ -69,6 +77,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         isAuthenticated: !!user,
         signup,
         login,
+        resetPassword,
         logout,
       }}
     >

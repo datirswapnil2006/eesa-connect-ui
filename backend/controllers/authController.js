@@ -110,3 +110,45 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: "Login failed" });
   }
 };
+
+// =================== FORGOT PASSWORD ===================
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate new password
+    const newPassword = crypto.randomBytes(4).toString("hex");
+
+    // Update user password
+    user.password = newPassword;
+    await user.save();
+
+    // Send email
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "EESA Password Reset",
+      text: `Hello ${user.name},
+
+Your password has been reset.
+
+New Password: ${newPassword}
+
+Please login and change your password immediately.
+
+Regards,
+EESA Connect Team`
+    });
+
+    res.json({ message: "New password sent to your email" });
+
+  } catch (error) {
+    console.error("Forgot password error:", error);
+    res.status(500).json({ message: "Failed to reset password" });
+  }
+};
