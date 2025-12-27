@@ -44,7 +44,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <img src="/eesa logo.jpg" alt="EESA logo" className="w-10 h-10 object-contain rounded-md group-hover:scale-105 transition-transform" />
+            <img src="/eesa-logo.jpg" alt="EESA logo" className="w-10 h-10 object-contain rounded-md group-hover:scale-105 transition-transform" />
             <span className="font-display font-bold text-xl text-foreground">EESA</span>
           </Link>
 
@@ -54,11 +54,10 @@ export function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive(link.path)
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive(link.path)
                     ? 'bg-primary text-primary-foreground'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                }`}
+                  }`}
               >
                 {link.name}
               </Link>
@@ -138,11 +137,10 @@ export function Navbar() {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    isActive(link.path)
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive(link.path)
                       ? 'bg-primary text-primary-foreground'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </Link>

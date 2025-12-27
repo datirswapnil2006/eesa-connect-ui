@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import "./styles/avatar-fix.css";
 
-
 import React, { useEffect, useState } from "react";
 import { events } from "@/lib/events";
 import EventModal from "@/components/EventModal";
@@ -26,8 +25,6 @@ import Terms from "./pages/Terms";
 import ForgotPassword from "./pages/ForgotPassword";
 import Events from "./pages/Events";
 
-
-
 // Dashboards
 import MemberDashboard from "./pages/dashboard/MemberDashboard";
 import FacultyDashboard from "./pages/dashboard/FacultyDashboard";
@@ -45,11 +42,8 @@ function EventPopupOnLogin() {
   const [mainEvent, setMainEvent] = useState(events[0] ?? null);
 
   useEffect(() => {
-    // 🔒 Only open popup when:
-    // 1. user exists
-    // 2. user is NOT admin
     if (!user || user.role === "admin") {
-      setOpen(false); // 👈 CLOSE popup on logout
+      setOpen(false);
       return;
     }
 
@@ -57,7 +51,6 @@ function EventPopupOnLogin() {
     setOpen(true);
   }, [user]);
 
-  // 🔒 Extra safety: never render modal for admin or guest
   if (!user || user.role === "admin") return null;
 
   return (
@@ -69,8 +62,6 @@ function EventPopupOnLogin() {
     />
   );
 }
-
-
 
 /* ------------------------------------------------
    PROTECTED ROUTE
@@ -106,68 +97,60 @@ function DashboardRouter() {
 }
 
 /* ------------------------------------------------
-   APP ROUTES
+   ROUTES
 --------------------------------------------------- */
-const AppRoutes = () => (
-  <BrowserRouter>
-    <Routes>
-      {/* Public Routes */}
-      <Route path="/" element={<Index />} />
-      <Route path="/events" element={<Events />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/alumni" element={<Alumni />} />
-      <Route path="/gallery" element={<Gallery />} />
-      <Route path="/forums" element={<Forums />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="/terms" element={<Terms />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      
+function AppRoutes() {
+  return (
+    <>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Index />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/alumni" element={<Alumni />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/forums" element={<Forums />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
+        {/* Dashboard */}
+        <Route
+          path="/dashboard/*"
+          element={
+            <ProtectedRoute>
+              <DashboardRouter />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* Catch-all */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
 
-      {/* Dashboard Routes */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <DashboardRouter />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/dashboard/*"
-        element={
-          <ProtectedRoute>
-            <DashboardRouter />
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Catch-all */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-
-    {/* Popup inside router */}
-    <EventPopupOnLogin />
-  </BrowserRouter>
-);
+      {/* Event Popup */}
+      <EventPopupOnLogin />
+    </>
+  );
+}
 
 /* ------------------------------------------------
-   MAIN APP COMPONENT
+   MAIN APP (FIXED ORDER)
 --------------------------------------------------- */
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <AppRoutes />
-      </TooltipProvider>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <AppRoutes />
+        </TooltipProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 

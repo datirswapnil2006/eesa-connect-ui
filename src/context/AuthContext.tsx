@@ -1,140 +1,86 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export type UserRole = 'admin' | 'faculty' | 'member' | 'alumni';
+export type UserRole = "admin" | "faculty" | "member" | "alumni";
 
-export interface User {
-  id: string;
+interface User {
   email: string;
   name: string;
   role: UserRole;
-  avatar?: string;
   approved: boolean;
-  position?: string;
-  skills?: string[];
-  bio?: string;
-  achievements?: string[];
-  links?: {
-    github?: string;
-    linkedin?: string;
-    website?: string;
-  };
 }
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  signup: (email: string, name: string, role: UserRole) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
-  signup: (email: string, password: string, name: string, role: UserRole) => Promise<void>;
   logout: () => void;
-  updateProfile: (data: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Mock users for demo
-const mockUsers: User[] = [
-  {
-    id: '1',
-    email: 'admin.eesa@gmail.com',
-    name: 'Dr. Sarah Chen',
-    role: 'admin',
-    approved: true,
-    position: 'Department Head',
-    skills: ['Leadership', 'Research', 'Embedded Systems'],
-    bio: 'Leading the EESA community for 5 years.',
-    achievements: ['IEEE Senior Member', 'Best Faculty Award 2023'],
-  },
-  {
-    id: '2',
-    email: 'faculty.eesa@gmail.com',
-    name: 'Prof. James Wilson',
-    role: 'faculty',
-    approved: true,
-    position: 'Associate Professor',
-    skills: ['VLSI Design', 'Signal Processing', 'Mentoring'],
-    bio: 'Passionate about teaching electronics.',
-    achievements: ['Published 50+ papers', 'Patent holder'],
-  },
-  {
-    id: '3',
-    email: 'member.eesa@gmail.com',
-    name: 'Alex Johnson',
-    role: 'member',
-    approved: true,
-    position: 'Final Year Student',
-    skills: ['Arduino', 'PCB Design', 'Python'],
-    bio: 'Aspiring embedded systems engineer.',
-    achievements: ['Hackathon Winner 2024'],
-  },
-  {
-    id: '4', 
-    email: 'alumni.eesa@gmail.com',
-    name: 'Rahul Mehta',
-    role: 'alumni',
-    approved: true,
-    position: 'Embedded Systems Engineer @ Bosch',
-    skills: ['Embedded C', 'IoT', 'RTOS'],
-    bio: 'EESA alumni working in the core electronics industry.',
-    achievements: ['Placed in Bosch', 'Industry Mentor'],
-  },
-];
+const API_BASE = "http://localhost:5000"; // BACKEND PORT
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
 
-  const login = async (email: string, password: string) => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    const foundUser = mockUsers.find(u => u.email === email);
-    if (foundUser) {
-      setUser(foundUser);
-    } else {
-      throw new Error('Invalid credentials');
-    }
-  };
-
-  const signup = async (email: string, password: string, name: string, role: UserRole) => {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    const newUser: User = {
-      id: Date.now().toString(),
+  // SIGNUP
+  const signup = async (email: string, name: string, role: UserRole) => {
+    await axios.post(`${API_BASE}/api/auth/signup`, {
       email,
       name,
       role,
-      approved: false, // Needs admin approval
-    };
-    setUser(newUser);
+    });
+  };
+
+  // LOGIN + ROLE BASED REDIRECT
+  const login = async (email: string, password: string) => {
+    const res = await axios.post<User>(`${API_BASE}/api/auth/login`, {
+      email,
+      password,
+    });
+
+    setUser(res.data);
+
+    // 🔁 STEP 9: ROLE BASED REDIRECT
+    if (res.data.role === "admin") {
+      navigate("/dashboard/admin");
+    } else if (res.data.role === "faculty") {
+      navigate("/dashboard/faculty");
+    } else if (res.data.role === "member") {
+      navigate("/dashboard/member");
+    } else if (res.data.role === "alumni") {
+      navigate("/dashboard/alumni");
+    }
   };
 
   const logout = () => {
     setUser(null);
-  };
-
-  const updateProfile = (data: Partial<User>) => {
-    if (user) {
-      setUser({ ...user, ...data });
-    }
+    navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      isAuthenticated: !!user,
-      login,
-      signup,
-      logout,
-      updateProfile,
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        signup,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+export const useAuth = () => {
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error("useAuth must be used inside AuthProvider");
   }
-  return context;
-}
+  return ctx;
+};

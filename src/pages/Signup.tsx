@@ -4,61 +4,56 @@ import { Navbar } from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertCircle, Loader2, CheckCircle, Eye, EyeOff } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 import { useAuth, UserRole } from '@/context/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
 export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState<UserRole>('member');
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  // NEW STATE FOR TERMS CHECKBOX
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { signup } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters');
-      return;
-    }
-
-    // REQUIRED TERMS CHECKBOX VALIDATION
     if (!acceptedTerms) {
-      setError('You must accept the Terms & Conditions to continue.');
+      setError('You must accept Terms & Conditions.');
       return;
     }
 
     setIsLoading(true);
 
     try {
-      await signup(email, password, name, role);
+      await signup(email, name, role);
       toast({
         title: 'Account created!',
-        description: 'Your account is pending admin approval.',
+        description: 'Login credentials have been sent to your email.',
       });
-      navigate('/dashboard');
-    } catch (err) {
+      navigate('/login');
+    } catch {
       setError('Failed to create account. Please try again.');
     } finally {
       setIsLoading(false);
@@ -69,12 +64,21 @@ export default function Signup() {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <div className="pt-24 pb-12 flex items-center justify-center px-4">
-        <Card className="w-full max-w-md card-elevated">
-          <CardHeader className="text-center">
-            <img src="/eesa logo.jpg" alt="EESA logo" className="w-14 h-14 object-contain mx-auto mb-4" />
-            <CardTitle className="font-display text-2xl">Join EESA</CardTitle>
-            <CardDescription>Create your account to get started</CardDescription>
+      <div className="pt-24 flex justify-center px-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center space-y-3">
+
+            {/*  LOGO */}
+            <img
+              src="/eesa-logo.jpg"
+              alt="EESA Logo"
+              className="w-16 h-16 mx-auto"
+            />
+
+            <CardTitle>Join EESA</CardTitle>
+            <CardDescription>
+              Use your personal email to create an account
+            </CardDescription>
           </CardHeader>
 
           <CardContent>
@@ -87,160 +91,92 @@ export default function Signup() {
                 </Alert>
               )}
 
-              <div className="space-y-2">
+              <div>
                 <Label htmlFor="name">Full Name</Label>
                 <Input
                   id="name"
-                  type="text"
-                  placeholder="John Doe"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                   required
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Your EESA Email</Label>
+              <div>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="member.eesa@gmail.com"
+                  placeholder="yourname@gmail.com"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   required
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="role">Role</Label>
-                <Select value={role} onValueChange={(value: UserRole) => setRole(value)}>
+              <div>
+                <Label>Role</Label>
+                <Select
+                  value={role}
+                  onValueChange={(v: UserRole) => setRole(v)}
+                >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select your role" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="member">Student Member</SelectItem>
-                    <SelectItem value="faculty">Faculty Member</SelectItem>
-                    <SelectItem value="admin">Administrator</SelectItem>
+                    <SelectItem value="member">Student</SelectItem>
+                    <SelectItem value="faculty">Faculty</SelectItem>
                     <SelectItem value="alumni">Alumni</SelectItem>
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-muted-foreground">
-                  Faculty accounts require verification.
-                </p>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="pr-10"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <div className="relative">
-                  <Input
-                    id="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="••••••••"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                    className="pr-10"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Password Requirements */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 text-xs">
-                  <CheckCircle className={`w-3 h-3 ${password.length >= 6 ? 'text-accent' : 'text-muted-foreground'}`} />
-                  <span className={password.length >= 6 ? 'text-accent' : 'text-muted-foreground'}>
-                    At least 6 characters
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-xs">
-                  <CheckCircle className={`w-3 h-3 ${password === confirmPassword && password.length > 0 ? 'text-accent' : 'text-muted-foreground'}`} />
-                  <span className={password === confirmPassword && password.length > 0 ? 'text-accent' : 'text-muted-foreground'}>
-                    Passwords match
-                  </span>
-                </div>
-              </div>
-
-              {/* TERMS & CONDITIONS CHECKBOX */}
-              <div className="flex items-start space-x-2 pt-2">
+              {/*  TERMS & PRIVACY */}
+              <div className="flex items-start gap-2">
                 <input
-                  type="checkbox"
                   id="terms"
+                  type="checkbox"
                   checked={acceptedTerms}
-                  onChange={(e) => setAcceptedTerms(e.target.checked)}
+                  onChange={e => setAcceptedTerms(e.target.checked)}
                   className="mt-1"
                 />
-                <label htmlFor="terms" className="text-sm text-muted-foreground">
+                <label htmlFor="terms" className="text-sm">
                   I agree to the{' '}
-                  <a href="/terms" target="_blank" className="text-primary underline">
+                  <Link
+                    to="/terms"
+                    className="text-primary underline"
+                    target="_blank"
+                  >
                     Terms & Conditions
-                  </a>{' '}
+                  </Link>{' '}
                   and{' '}
-                  <a href="/privacy" target="_blank" className="text-primary underline">
+                  <Link
+                    to="/privacy"
+                    className="text-primary underline"
+                    target="_blank"
+                  >
                     Privacy Policy
-                  </a>.
+                  </Link>
                 </label>
               </div>
 
-              {/* BUTTON DISABLED UNTIL TERMS ACCEPTED */}
               <Button
-                type="submit"
-                className="w-full gradient-hero text-primary-foreground border-0"
                 disabled={isLoading || !acceptedTerms}
+                className="w-full"
               >
                 {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating account...
-                  </>
+                  <Loader2 className="animate-spin" />
                 ) : (
                   'Create Account'
                 )}
               </Button>
             </form>
 
-            <div className="mt-6 text-center text-sm text-muted-foreground">
+            <p className="text-sm text-center mt-4">
               Already have an account?{' '}
-              <Link to="/login" className="text-primary hover:underline font-medium">
-                Sign in
+              <Link to="/login" className="underline">
+                Login
               </Link>
-            </div>
+            </p>
           </CardContent>
         </Card>
       </div>
