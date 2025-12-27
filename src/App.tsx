@@ -1,11 +1,12 @@
+import React, { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import "./styles/avatar-fix.css";
 
-import React, { useEffect, useState } from "react";
 import { events } from "@/lib/events";
 import EventModal from "@/components/EventModal";
 
@@ -30,9 +31,10 @@ import FacultyDashboard from "./pages/dashboard/FacultyDashboard";
 import AdminDashboard from "./pages/dashboard/AdminDashboard";
 import AlumniDashboard from "./pages/dashboard/AlumniDashboard";
 
-/* 
-   EVENT POPUP AFTER LOGIN
-*/
+// AI Chat
+import AIChat from "./pages/AIChat";
+
+/* EVENT POPUP AFTER LOGIN */
 function EventPopupOnLogin() {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
@@ -59,25 +61,16 @@ function EventPopupOnLogin() {
   );
 }
 
-/* 
-   PROTECTED ROUTE
- */
+/* PROTECTED ROUTE */
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth();
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
   return <>{children}</>;
 }
 
-/*
-   DASHBOARD ROUTER
-*/
+/* DASHBOARD ROUTER */
 function DashboardRouter() {
   const { user } = useAuth();
-
   if (!user) return <Navigate to="/login" replace />;
 
   switch (user.role) {
@@ -92,9 +85,7 @@ function DashboardRouter() {
   }
 }
 
-/* 
-   APP ROUTES
- */
+/* ROUTES */
 function AppRoutes() {
   return (
     <>
@@ -112,6 +103,17 @@ function AppRoutes() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
+        {/* AI CHAT */}
+        <Route
+          path="/ai-chat"
+          element={
+            <ProtectedRoute>
+              <AIChat />
+            </ProtectedRoute>
+          }
+        />
+
+        {/*  DASHBOARD */}
         <Route
           path="/dashboard/*"
           element={
@@ -129,9 +131,7 @@ function AppRoutes() {
   );
 }
 
-/* 
-   MAIN APP COMPONENT
- */
+/* MAIN APP */
 export default function App() {
   return (
     <TooltipProvider>
